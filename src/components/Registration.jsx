@@ -1,13 +1,6 @@
 import React from 'react';
-import Card from '@material-ui/core/Card';
-import '../css/registration.scss';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
+import '../style/registration.scss';
 import { register } from '../services/userService'
-import 'react-toastify/dist/ReactToastify.min.css'
-import Snackbar from '@material-ui/core/Snackbar';
-import IconButton from '@material-ui/core/IconButton';
-import LinearProgress from '@material-ui/core/LinearProgress';
 import image from "../assets/account.png";
 
 class Registration extends React.Component {
@@ -21,13 +14,6 @@ class Registration extends React.Component {
       confirmPassword: "",
       showLoader: false
     }
-    this.state = { snackbaropen: false, snackbarmsg: '' };
-    // this.state = {showLoader: false}
-    // this.state = {value : ''}
-  }
-
-  snackbarClose = (event) => {
-    this.setState({ snackbaropen: false })
   }
 
   handlechangeall = (event) => {
@@ -46,16 +32,19 @@ class Registration extends React.Component {
     registerData.lastName = this.state.lastName;
     registerData.email = this.state.email;
     registerData.password = this.state.password
-
-    console.log("data : 36", registerData);
+    
+    console.log(registerData);
+    
     let options = {
       data: registerData,
       purpose: 'register'
     }
+
     register(options)
       .then((response) => {
+      }).then((response) => {
+        response.map(response1 => response1)
         console.log("response in register jsx: ", response);
-        this.setState({ snackbaropen: true, snackbarmsg: "Registration successful , check your email" });
         this.setState({ showLoader: false });
         this.setState({
           firstName: '',
@@ -64,25 +53,23 @@ class Registration extends React.Component {
           password: '',
           confirmPassword: ''
         });
-
       })
       .catch((error) => {
         console.log("error in regster jsx: ", error);
-        this.setState({ snackbaropen: true, snackbarmsg: error.message });
         this.setState({ showLoader: false });
       })
   }
 
   render() {
     return (
-      <Card className="card">
+      <div className="Container">
         <div className="progress">
-          {this.state.showLoader ? <LinearProgress /> : null
+          {this.state.showLoader ? <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div> : null
           }
 
         </div>
         <div className="content-div">
-          <Snackbar
+        <div id="snackbar">
             anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
             open={this.state.snackbaropen}
             autoHideDuration={3000}
@@ -92,16 +79,16 @@ class Registration extends React.Component {
               {this.state.snackbarmsg}
             </span>}
             action={[
-              <IconButton
+              <button type="button" className="btn btn-primary px-3"><i
                 key="close"
                 arial-label="Close"
                 color="inherit"
                 onClick={this.snackbarClose}
               >
                 x
-       </IconButton>
+                </i></button>
             ]}
-          />
+          </div>
           <div className="content">
             <div className="title">
               <div className="f">F </div>
@@ -121,7 +108,7 @@ class Registration extends React.Component {
           </div>
             <div className="initials">
               <div className="nameArea">
-                <TextField
+                <textarea>
                   id="outlined-basic"
                   className="textField"
                   label="First Name"
@@ -130,10 +117,10 @@ class Registration extends React.Component {
                   value={this.state.firstName}
                   onChange={this.handlechangeall}
                   variant="outlined"
-                />
+                </textarea>
               </div>
               <div className="nameArea">
-                <TextField
+              <textarea>
                   id="outlined-basic"
                   className="textField"
                   label="Last Name"
@@ -143,11 +130,11 @@ class Registration extends React.Component {
                   onChange={this.handlechangeall}
                   variant="outlined"
                   autoComplete="off"
-                />
+                  </textarea>
               </div>
             </div>
             <div className="emailArea">
-              <TextField
+            <textarea>
                 id="outlined-basic"
                 className="textField3"
                 label="Email"
@@ -157,11 +144,11 @@ class Registration extends React.Component {
                 onChange={this.handlechangeall}
                 variant="outlined"
                 autoComplete="off"
-              />
+                </textarea>
             </div>
             <div className="initials">
               <div className="nameArea">
-                <TextField
+              <textarea>
                   id="outlined-basic"
                   className="textField"
                   label="Password"
@@ -170,10 +157,10 @@ class Registration extends React.Component {
                   value={this.state.password}
                   onChange={this.handlechangeall}
                   variant="outlined"
-                />
+                  </textarea>
               </div>
               <div className="nameArea">
-                <TextField
+              <textarea>
                   id="outlined-basic"
                   className="textField"
                   label="Confirm Password"
@@ -182,7 +169,7 @@ class Registration extends React.Component {
                   value={this.state.confirmPassword}
                   onChange={this.handlechangeall}
                   variant="outlined"
-                />
+                  </textarea>
               </div>
             </div>
 
@@ -191,20 +178,19 @@ class Registration extends React.Component {
                 onClick={this.handleLoginClick}>
                 Log in instead?
         </div>
-              <Button
+              <button type="button"
                 className="submitBtn"
                 variant="contained"
-                onClick={this.handleRegisterSubmit}
-              >
+                onClick={this.handleRegisterSubmit}>
                 Sign In
-      </Button>
+              </button>
             </div>
           </div>
           <div className="account">
           <img src={image} alt="error"/>
           </div>
         </div>
-      </Card>
+      </div>
     )
   }
 }
