@@ -1,0 +1,190 @@
+@import "../constants/variable.scss";
+@import "../constants/mixins.scss";
+
+body {
+  font-family: Algerian;
+}
+
+.title {
+  flex-direction: row;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  margin-left: 6%;
+  margin-top: 3%;
+}
+
+.content-div {
+  display: flex;
+  flex-direction: row;
+}
+
+.progress {
+  width: 100%;
+  background-color: none !important;
+}
+.subtitle {
+  flex-direction: row;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  margin-left: 5%;
+  margin-top: 2%;
+  font-size: 25px;
+}
+.card {
+  min-width: 20%;
+  max-width: 50%;
+  display: flex;
+  flex-direction: column;
+  margin: 100px auto;
+}
+
+.textField {
+  min-width: 25%;
+}
+
+.account {
+  display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 6%;
+}
+
+.textField3 {
+  width: 90%;
+}
+
+.content {
+  width: 62%;
+}
+
+.nameArea {
+  margin-left: 6%;
+}
+
+.initials {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-around;
+}
+
+.emailArea{
+   width: 106%;
+   margin-left: 6%;
+}
+.f {
+  @include titleShow;
+  color: blue;
+}
+
+.u {
+  @include titleShow;
+  color: yellow;
+}
+.n {
+  @include titleShow;
+  color: green;
+}
+.d {
+  @include titleShow;
+  color: red;
+}
+.o {
+  @include titleShow;
+  color: blue;
+}
+.oo {
+  @include titleShow;
+  color: yellow;
+}
+.n {
+  @include titleShow;
+}
+.ooo {
+  @include titleShow;
+  color: yellow;
+}
+.t {
+  @include titleShow;
+  color: red;
+}
+
+.e {
+  @include titleShow;
+  color: green;
+}
+
+.s {
+  @include titleShow;
+  color: blue;
+}
+
+.submit {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  margin-top: 3%;
+  margin-bottom: 3%;
+  width: 100%;
+}
+
+.submitBtn {
+  @include submitButton;
+}
+@media only screen and (max-width: 600px) {
+  .title {
+    flex-direction: row;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+  }
+
+  .subtitle {
+    margin-left: 10%;
+    margin-top: 2%;
+    font-size: 22px;
+  }
+  .card {
+    min-width: 20%;
+    max-width: 99%;
+    display: flex;
+    flex-direction: column;
+    margin: 100px auto;
+  }
+
+  .nameArea {
+    margin-left: 0%;
+    width: 100%;
+  }
+  .initials {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .textField3 {
+    width: 95%;
+  }
+
+  .textField {
+    width: 95%;
+  }
+
+  .content {
+    width: 100%;
+  }
+
+  .account {
+    display: none;
+  }
+
+  img {
+    vertical-align: middle;
+    border-style: none;
+    min-width: 2px;
+    height: 134px;
+}
+
+}

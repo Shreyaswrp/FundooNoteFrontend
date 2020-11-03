@@ -1,0 +1,11 @@
+@mixin titleShow {
+    font-size: $h1;
+    font-weight: 500;
+}
+
+@mixin submitButton {
+    background: #1a73e8  !important;
+    color: white  !important;
+    font-weight: 600  !important;
+    letter-spacing: 0.04em  !important;
+}
