@@ -12,7 +12,12 @@ class Registration extends React.Component {
       password: "",
       email: "",
       confirmPassword: "",
-      showLoader: false
+      showLoader: false,
+      placeholder_firstName: "First name",
+      placeholder_lastName: "Last name",
+      placeholder_email: "Email",
+      placeholder_password: "Password",
+      placeholder_confirmPassword: "Confirm",
     }
   }
 
@@ -24,7 +29,42 @@ class Registration extends React.Component {
     var path = '/login'
     this.props.history.push(path)
   }
-  
+
+  showoutlinelabel = () => {
+    this.setState({
+      placeholder_firstName: ''
+    })
+    document.getElementsByClassName("outline")[0].style.setProperty("display", "block")
+  }
+
+  showoutlinelabelLastName = () => {
+    this.setState({
+      placeholder_lastName: ''
+    })
+    document.getElementsByClassName("outline-lastname")[0].style.setProperty("display", "block")
+  }
+
+  showoutlinelabelEmail = () => {
+    this.setState({
+      placeholder_email: ''
+    })
+    document.getElementsByClassName("outline-email")[0].style.setProperty("display", "block")
+  }
+
+  showoutlinelabelPassword = () => {
+    this.setState({
+      placeholder_password: ''
+    })
+    document.getElementsByClassName("outline-password")[0].style.setProperty("display", "block")
+  }
+
+  showoutlinelabelConfirmPassword = () => {
+    this.setState({
+      placeholder_confirmPassword: ''
+    })
+    document.getElementsByClassName("outline-confirmpassword")[0].style.setProperty("display", "block")
+  }
+
   handleRegisterSubmit = (event) => {
     this.setState({ showLoader: true })
     var registerData = {};
@@ -33,7 +73,7 @@ class Registration extends React.Component {
     registerData.email = this.state.email;
     registerData.password = this.state.password
     
-    console.log(registerData);
+    console.log("registered data" +registerData);
     
     let options = {
       data: registerData,
@@ -42,8 +82,6 @@ class Registration extends React.Component {
 
     register(options)
       .then((response) => {
-      }).then((response) => {
-        response.map(response1 => response1)
         console.log("response in register jsx: ", response);
         this.setState({ showLoader: false });
         this.setState({
@@ -63,37 +101,12 @@ class Registration extends React.Component {
   render() {
     return (
       <div className="Container">
-        <div className="progress">
-          {this.state.showLoader ? <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div> : null
-          }
-
-        </div>
         <div className="content-div">
-        <div id="snackbar">
-            anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-            open={this.state.snackbaropen}
-            autoHideDuration={3000}
-            onClose={this.snackbarClose}
-
-            message={<span id="message-id">
-              {this.state.snackbarmsg}
-            </span>}
-            action={[
-              <button type="button" className="btn btn-primary px-3"><i
-                key="close"
-                arial-label="Close"
-                color="inherit"
-                onClick={this.snackbarClose}
-              >
-                x
-                </i></button>
-            ]}
-          </div>
           <div className="content">
             <div className="title">
               <div className="f">F </div>
               <div className="u">u </div>
-              <div className="n">n </div>
+              <div className="nt">n </div>
               <div className="d">d </div>
               <div className="o">o </div>
               <div className="oo">o </div>
@@ -106,72 +119,68 @@ class Registration extends React.Component {
             <div className="subtitle">
               Create your Fundoo Account
           </div>
-            <div className="initials">
-              <div className="nameArea">
-                <textarea>
-                  id="outlined-basic"
-                  className="textField"
-                  label="First Name"
-                  name="firstName"
-                  margin="normal"
+          <form className="account-form">
+          <div className="initials">
+          <div className="nameArea">
+          <div className="outline" >
+          <span >First name</span></div>
+                <textarea className="text-field"
+                  placeholder={this.state.placeholder_firstName}
+                  onClick= {this.showoutlinelabel}
                   value={this.state.firstName}
                   onChange={this.handlechangeall}
                   variant="outlined"
+                  autoComplete="off">
                 </textarea>
-              </div>
-              <div className="nameArea">
-              <textarea>
-                  id="outlined-basic"
-                  className="textField"
-                  label="Last Name"
-                  name="lastName"
-                  margin="normal"
+          </div>
+            
+          <div className="nameArea">
+          <div className="outline-lastname">
+          <span >Last name</span></div>
+              <textarea className="text-field"
+                  placeholder={this.state.placeholder_lastName}
+                  onClick= {this.showoutlinelabelLastName}
                   value={this.state.lastName}
                   onChange={this.handlechangeall}
                   variant="outlined"
-                  autoComplete="off"
-                  </textarea>
-              </div>
+                  autoComplete="off"></textarea>
             </div>
+            </div>
+            
             <div className="emailArea">
-            <textarea>
-                id="outlined-basic"
-                className="textField3"
-                label="Email"
-                name="email"
-                margin="normal"
+            <div className="outline-email">
+          <span >Email</span></div>
+            <textarea className="text-field" 
+                placeholder={this.state.placeholder_email}
+                onClick= {this.showoutlinelabelEmail}
                 value={this.state.email}
                 onChange={this.handlechangeall}
                 variant="outlined"
-                autoComplete="off"
-                </textarea>
+                autoComplete="off"></textarea>
             </div>
             <div className="initials">
               <div className="nameArea">
-              <textarea>
-                  id="outlined-basic"
-                  className="textField"
-                  label="Password"
-                  name="password"
-                  margin="normal"
+              <div className="outline-password">
+          <span >Password</span></div>
+              <textarea className="text-field"
+                  placeholder={this.state.placeholder_password}
+                  onClick= {this.showoutlinelabelPassword}
                   value={this.state.password}
                   onChange={this.handlechangeall}
-                  variant="outlined"
-                  </textarea>
+                  variant="outlined"></textarea>
               </div>
               <div className="nameArea">
-              <textarea>
-                  id="outlined-basic"
-                  className="textField"
-                  label="Confirm Password"
-                  name="confirmPassword"
-                  margin="normal"
+              <div className="outline-confirmpassword">
+          <span >Confirm</span></div>
+              <textarea className="text-field"
+                  placeholder={this.state.placeholder_confirmPassword}
+                  onClick= {this.showoutlinelabelConfirmPassword}
                   value={this.state.confirmPassword}
                   onChange={this.handlechangeall}
-                  variant="outlined"
-                  </textarea>
+                  variant="outlined"></textarea>
               </div>
             </div>
+            </form>
 
             <div className="submit">
               <div className="text"
@@ -187,7 +196,7 @@ class Registration extends React.Component {
             </div>
           </div>
           <div className="account">
-          <img src={image} alt="error"/>
+          <img className= "account-image" src={image} alt="error"/>
           </div>
         </div>
       </div>
