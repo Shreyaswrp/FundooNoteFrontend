@@ -5,13 +5,38 @@ body {
   font-family: arial,sans-serif;
 }
 
+.form-group{ position: relative; margin-top: 25px; padding: 0;}
+.form-control{height: 40px}
+.form-control:focus{box-shadow: none; border-style: solid;
+  border-color: blue;
+  border-width: 2px;}
+
+label{
+  position: absolute;
+  left: 7px;
+  top: 7px;
+  transition: all 0.3s;
+  background-color: white;
+  color: #999;
+  font-weight: normal;
+}
+
+.form-control:focus ~ label{
+  left: 8px; 
+  top: -10px;
+  color: blue; 
+  background: #fff;
+  padding:0 5px;
+  border-width: 4px;
+}
+
 .title {
   flex-direction: row;
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
-  margin-left: -2%;
-  margin-top: -4%;
+  margin-left: 0px;
+  margin-top: -6px;
 }
 
 .content-div {
@@ -24,12 +49,12 @@ body {
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
-  margin-left: -2%;
-  margin-top: 1%;
+  margin-left: 0px;
+  margin-top: 9px;
   font-size: 25px;
 }
 
-.Container {
+.container {
   width: 754px;
   border: 8px;
   border: 1px solid gainsboro;;
@@ -40,19 +65,11 @@ body {
   border-radius: 8px;
 }
 
-.textField {
-  min-width: 25%;
-}
-
 .account {
   display: flex;
   justify-content: center;
   align-items: center;
   margin-left: 10%;
-}
-
-.textField3 {
-  width: 90%;
 }
 
 .content {
@@ -65,16 +82,8 @@ img {
   width: 191px;
 }
 
-.text-field {
-  border-color: lightgray;
-  border-radius: 8px;
-  border-width: 1px;
-}
-
-.nameArea {
-  margin-left: 6%;
-  width: 59%;
-  border-color: blue;
+.side-form {
+  margin-left: 16px;
 }
 
 .initials {
@@ -82,53 +91,8 @@ img {
   flex-direction: row;
   align-items: flex-start;
   justify-content: space-around;
-  margin-top: 27px;
-}
-
-.outline-lastname {
-  margin-bottom: 1rem;
-  top: 253px;
-  position: absolute;
-  background-color: white;
-  width: 77px;
-  margin-left: 6px;
-  display: none;
-}
-
-.outline-email {
-  margin-bottom: 1rem;
-  top: 341px;
-  position: absolute;
-  background-color: white;
-  width: 42px;
-  margin-left: 9px;
-  display: none;
-}
-
-.outline-password {
-  margin-bottom: 1rem;
-    top: 428px;
-    position: absolute;
-    background-color: white;
-    width: 71px;
-    margin-left: 9px;
-    display: none;
-}
-
-.outline-confirmpassword {
-  margin-bottom: 1rem;
-  top: 428px;
-  position: absolute;
-  background-color: white;
-  width: 57px;
-  margin-left: 9px;
-  display: none;
-}
-
-.emailArea{
-   width: 59%;
-   margin-left: 0%;
-   margin-top: 27px;
+  margin-top: 1px;
+  margin-left: 0px;
 }
 
 .f {
@@ -194,20 +158,6 @@ img {
   @include submitButton;
 }
 
-.account-form{
-  padding-top: 1em;
-}
-
-.outline {
-  margin-bottom: 1rem;
-  top: 253px;
-  position: absolute;
-  background-color: white;
-  width: 77px;
-  margin-left: 6px;
-  display: none;
-}
-
 @media only screen and (max-width: 600px) {
   .title {
     flex-direction: row;
@@ -222,29 +172,10 @@ img {
     margin-bottom: 5%;
     font-size: 22px;
   }
-  .card {
-    min-width: 20%;
-    max-width: 99%;
-    display: flex;
-    flex-direction: column;
-    margin: 100px auto;
-  }
-
-  .nameArea {
-    margin-left: 0%;
-    width: 100%;
-  }
+  
   .initials {
     display: flex;
     flex-direction: column;
-  }
-
-  .textField3 {
-    width: 95%;
-  }
-
-  .textField {
-    width: 95%;
   }
 
   .content {
@@ -254,6 +185,4 @@ img {
   .account {
     display: none;
   }
-
-  
 }

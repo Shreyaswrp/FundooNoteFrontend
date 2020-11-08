@@ -1,106 +1,135 @@
-import React from 'react';
-import '../style/registration.scss';
-import { register } from '../services/userService'
+import React from "react";
+import "../style/registration.scss";
+import { register } from "../services/userService";
 import image from "../assets/account.png";
 
+const validEmailRegex = RegExp(
+  /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
+);
+
+const initialState = {
+  firstName: "",
+  lastName: "",
+  password: "",
+  email: "",
+  confirmPassword: "",
+  firstNameError: "",
+  lastNameError: "",
+  passwordError: "",
+  emailError: "",
+  confirmPasswordError: "",
+  showLoader: false,
+};
+
 class Registration extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      firstName: "",
-      lastName: "",
-      password: "",
-      email: "",
-      confirmPassword: "",
-      showLoader: false,
-      placeholder_firstName: "First name",
-      placeholder_lastName: "Last name",
-      placeholder_email: "Email",
-      placeholder_password: "Password",
-      placeholder_confirmPassword: "Confirm",
+  state = initialState;
+  
+  handleChangeAll = (event) => {
+    const isCheckbox = event.target.type === "checkbox";
+    this.setState({
+      [event.target.name]: isCheckbox
+        ? event.target.checked
+        : event.target.value,
+    });
+  };
+
+  validateForm = () => {
+    let firstNameError = "";
+    let lastNameError = "";
+    let passwordError = "";
+    let emailError= "";
+    let confirmPasswordError= "";
+
+    if(!this.state.firstName) {
+      firstNameError = "First Name is required!"
     }
-  }
 
-  handlechangeall = (event) => {
-    this.setState({ [event.target.name]: event.target.value })
-  }
+    if(this.state.firstName.length< 3) {
+      firstNameError = "First Name must be at least 3 characters long!"
+    }
 
-  handleLoginClick = () => {
-    var path = '/login'
-    this.props.history.push(path)
-  }
+    if(!this.state.lastName) {
+      lastNameError = "Last Name is required!"
+    }
+     
+    if(this.state.lastName.length< 3) {
+      lastNameError = "Last Name must be at least 3 characters long!"
+    }
 
-  showoutlinelabel = () => {
-    this.setState({
-      placeholder_firstName: ''
-    })
-    document.getElementsByClassName("outline")[0].style.setProperty("display", "block")
-  }
+    if(!this.state.email) {
+      emailError = "Email id is required!"
+    }
 
-  showoutlinelabelLastName = () => {
-    this.setState({
-      placeholder_lastName: ''
-    })
-    document.getElementsByClassName("outline-lastname")[0].style.setProperty("display", "block")
-  }
+    if(validEmailRegex.test(this.state.email)) {
+      emailError = "Email id is not valid!"
+    }
 
-  showoutlinelabelEmail = () => {
-    this.setState({
-      placeholder_email: ''
-    })
-    document.getElementsByClassName("outline-email")[0].style.setProperty("display", "block")
-  }
+    if(!this.state.password) {
+      passwordError = "Password is required!"
+    }
 
-  showoutlinelabelPassword = () => {
-    this.setState({
-      placeholder_password: ''
-    })
-    document.getElementsByClassName("outline-password")[0].style.setProperty("display", "block")
-  }
+    if(this.state.password.length < 8) {
+      passwordError = "Password must be at least 8 characters long!"
+    }
 
-  showoutlinelabelConfirmPassword = () => {
-    this.setState({
-      placeholder_confirmPassword: ''
-    })
-    document.getElementsByClassName("outline-confirmpassword")[0].style.setProperty("display", "block")
-  }
+    if(!this.state.confirmPassword) {
+      confirmPasswordError = "Password confirmation is required!"
+    }
+
+    if(this.state.confirmPassword == this.state.password) {
+      confirmPasswordError = "Password doesn't match!"
+    }
+
+    if(firstNameError || lastNameError || emailError || passwordError || confirmPasswordError) {
+      this.setState({ firstNameError, lastNameError, emailError, passwordError, confirmPasswordError});
+      return false;
+    }
+
+    return true;
+
+  };
 
   handleRegisterSubmit = (event) => {
-    this.setState({ showLoader: true })
-    var registerData = {};
-    registerData.firstName = this.state.firstName;
-    registerData.lastName = this.state.lastName;
-    registerData.email = this.state.email;
-    registerData.password = this.state.password
-    
-    console.log("registered data" +registerData);
-    
-    let options = {
-      data: registerData,
-      purpose: 'register'
-    }
+    event.preventDefault();
+    const isValid = this.validateForm();
+    console.log("88"+isValid);
+    if (isValid) {
+      this.setState({ showLoader: true });
+      var registerData = {};
+      registerData.firstName = this.state.firstName;
+      registerData.lastName = this.state.lastName;
+      registerData.email = this.state.email;
+      registerData.password = this.state.password;
 
-    register(options)
-      .then((response) => {
-        console.log("response in register jsx: ", response);
-        this.setState({ showLoader: false });
-        this.setState({
-          firstName: '',
-          lastName: '',
-          email: '',
-          password: '',
-          confirmPassword: ''
+      let options = {
+        data: registerData,
+      };
+
+      register(options)
+        .then((response) => {
+          console.log("response in register jsx: ", response);
+          this.setState({ showLoader: false });
+          this.setState({
+            firstName: "",
+            lastName: "",
+            email: "",
+            password: "",
+            confirmPassword: "",
+          });
+        })
+        .catch((error) => {
+          console.log("error in regster jsx: ", error);
+          this.setState({ showLoader: false });
         });
-      })
-      .catch((error) => {
-        console.log("error in regster jsx: ", error);
-        this.setState({ showLoader: false });
-      })
-  }
+
+        //Clear form
+        this.setState(initialState);
+    }
+  };
 
   render() {
     return (
-      <div className="Container">
+      <div className="container">
         <div className="content-div">
           <div className="content">
             <div className="title">
@@ -116,78 +145,81 @@ class Registration extends React.Component {
               <div className="e">e </div>
               <div className="s">s </div>
             </div>
-            <div className="subtitle">
-              Create your Fundoo Account
-          </div>
-          <form className="account-form">
-          <div className="initials">
-          <div className="nameArea">
-          <div className="outline" >
-          <span >First name</span></div>
-                <textarea className="text-field"
-                  placeholder={this.state.placeholder_firstName}
-                  onClick= {this.showoutlinelabel}
-                  value={this.state.firstName}
-                  onChange={this.handlechangeall}
-                  variant="outlined"
-                  autoComplete="off">
-                </textarea>
-          </div>
-            
-          <div className="nameArea">
-          <div className="outline-lastname">
-          <span >Last name</span></div>
-              <textarea className="text-field"
-                  placeholder={this.state.placeholder_lastName}
-                  onClick= {this.showoutlinelabelLastName}
-                  value={this.state.lastName}
-                  onChange={this.handlechangeall}
-                  variant="outlined"
-                  autoComplete="off"></textarea>
-            </div>
-            </div>
-            
-            <div className="emailArea">
-            <div className="outline-email">
-          <span >Email</span></div>
-            <textarea className="text-field" 
-                placeholder={this.state.placeholder_email}
-                onClick= {this.showoutlinelabelEmail}
-                value={this.state.email}
-                onChange={this.handlechangeall}
-                variant="outlined"
-                autoComplete="off"></textarea>
-            </div>
-            <div className="initials">
-              <div className="nameArea">
-              <div className="outline-password">
-          <span >Password</span></div>
-              <textarea className="text-field"
-                  placeholder={this.state.placeholder_password}
-                  onClick= {this.showoutlinelabelPassword}
-                  value={this.state.password}
-                  onChange={this.handlechangeall}
-                  variant="outlined"></textarea>
+            <div className="subtitle">Create your Fundoo Account</div>
+            <form autocomplete="off">
+              <div className="initials">
+                <div className="form-group">
+                  <input
+                    class="form-control"
+                    name="firstname"
+                    value={this.state.firstName}
+                    onChange={this.handleChangeAll}
+                  />
+                  <label for="firstname">First name</label>
+                  <div className="valid-feedback">Valid.</div>
+                  <div className="invalid-feedback">{this.state.firstNameError}</div>
+                </div>
+
+                <div className="form-group side-form">
+                  <input
+                    class="form-control"
+                    name="lastname"
+                    value={this.state.lastName}
+                    onChange={this.handleChangeAll}
+                  />
+                  <label for="firstname">Last name</label>
+                  <div class="valid-feedback">Valid.</div>
+                  <div class="invalid-feedback">{this.state.lastNameError}</div>
+                </div>
               </div>
-              <div className="nameArea">
-              <div className="outline-confirmpassword">
-          <span >Confirm</span></div>
-              <textarea className="text-field"
-                  placeholder={this.state.placeholder_confirmPassword}
-                  onClick= {this.showoutlinelabelConfirmPassword}
-                  value={this.state.confirmPassword}
-                  onChange={this.handlechangeall}
-                  variant="outlined"></textarea>
+
+              <div className="form-group">
+                <input
+                  class="form-control"
+                  name="email"
+                  value={this.state.email}
+                  onChange={this.handleChangeAll}
+                />
+                <label for="email">Email</label>
+                <div class="valid-feedback">Valid.</div>
+                <div class="invalid-feedback">{this.state.emailError}</div>
               </div>
-            </div>
+
+              <div className="initials">
+                <div className="form-group">
+                  <input
+                    class="form-control"
+                    name="password"
+                    value={this.state.password}
+                    onChange={this.handleChangeAll}
+                  />
+                  <label for="firstname">Password</label>
+                  <div class="valid-feedback">Valid.</div>
+                  <div class="invalid-feedback">{this.state.passwordError}</div>
+                </div>
+
+                <div className="form-group side-form">
+                  <input
+                    class="form-control"
+                    name="confirmpassword"
+                    value={this.state.confirmPassword}
+                    onChange={this.handleChangeAll}
+                  />
+                  <label for="firstname">Confirm</label>
+                  <div class="valid-feedback">Valid.</div>
+                  <div class="invalid-feedback">
+                    {this.state.confirmPasswordError}
+                  </div>
+                </div>
+              </div>
             </form>
 
             <div className="submit">
-              <div className="text"
-                onClick={this.handleLoginClick}>
+              <div className="text" onClick={this.handleLoginClick}>
                 Log in instead?
-        </div>
-              <button type="button"
+              </div>
+              <button
+                type="submit"
                 className="submitBtn"
                 variant="contained"
                 onClick={this.handleRegisterSubmit}>
@@ -196,11 +228,11 @@ class Registration extends React.Component {
             </div>
           </div>
           <div className="account">
-          <img className= "account-image" src={image} alt="error"/>
+            <img className="account-image" src={image} alt="error" />
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
 
