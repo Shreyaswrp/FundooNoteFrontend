@@ -10,15 +10,15 @@ body {
 .form-control:focus{box-shadow: none; border-style: solid;
   border-color: blue;
   border-width: 2px;}
-
-label{
+  
+label {
   position: absolute;
   left: 7px;
   top: 7px;
   transition: all 0.3s;
   background-color: white;
   color: #999;
-  font-weight: normal;
+  font-weight: 2px;
 }
 
 .form-control:focus ~ label{
@@ -29,6 +29,8 @@ label{
   padding:0 5px;
   border-width: 4px;
 }
+
+
 
 .title {
   flex-direction: row;

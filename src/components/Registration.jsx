@@ -19,11 +19,12 @@ const initialState = {
   emailError: "",
   confirmPasswordError: "",
   showLoader: false,
+  active: false
 };
 
 class Registration extends React.Component {
   state = initialState;
-  
+
   handleChangeAll = (event) => {
     const isCheckbox = event.target.type === "checkbox";
     this.setState({
@@ -31,7 +32,10 @@ class Registration extends React.Component {
         ? event.target.checked
         : event.target.value,
     });
+    event.preventDefault();
   };
+
+
 
   validateForm = () => {
     let firstNameError = "";
@@ -150,12 +154,15 @@ class Registration extends React.Component {
               <div className="initials">
                 <div className="form-group">
                   <input
+                    type= "firstname"
                     class="form-control"
-                    name="firstname"
+                    name="firstName"
+                    required=""
                     value={this.state.firstName}
+                    onInput={this.handleLabelHide}
                     onChange={this.handleChangeAll}
                   />
-                  <label for="firstname">First name</label>
+                  <label>First name</label>
                   <div className="valid-feedback">Valid.</div>
                   <div className="invalid-feedback">{this.state.firstNameError}</div>
                 </div>
@@ -163,11 +170,12 @@ class Registration extends React.Component {
                 <div className="form-group side-form">
                   <input
                     class="form-control"
-                    name="lastname"
+                    name="lastName"
+                    required=""
                     value={this.state.lastName}
                     onChange={this.handleChangeAll}
                   />
-                  <label for="firstname">Last name</label>
+                  <label for="lastName">Last name</label>
                   <div class="valid-feedback">Valid.</div>
                   <div class="invalid-feedback">{this.state.lastNameError}</div>
                 </div>
@@ -177,6 +185,7 @@ class Registration extends React.Component {
                 <input
                   class="form-control"
                   name="email"
+                  required=""
                   value={this.state.email}
                   onChange={this.handleChangeAll}
                 />
@@ -190,10 +199,11 @@ class Registration extends React.Component {
                   <input
                     class="form-control"
                     name="password"
+                    required=""
                     value={this.state.password}
                     onChange={this.handleChangeAll}
                   />
-                  <label for="firstname">Password</label>
+                  <label for="password">Password</label>
                   <div class="valid-feedback">Valid.</div>
                   <div class="invalid-feedback">{this.state.passwordError}</div>
                 </div>
@@ -201,11 +211,12 @@ class Registration extends React.Component {
                 <div className="form-group side-form">
                   <input
                     class="form-control"
-                    name="confirmpassword"
+                    name="confirmPassword"
+                    required=""
                     value={this.state.confirmPassword}
                     onChange={this.handleChangeAll}
                   />
-                  <label for="firstname">Confirm</label>
+                  <label for="confirmPassword">Confirm</label>
                   <div class="valid-feedback">Valid.</div>
                   <div class="invalid-feedback">
                     {this.state.confirmPasswordError}
