@@ -44,7 +44,7 @@ body {
 .container input
 {
   padding: 8px;
-  margin-bottom: 30px;
+
   top: 8px;
   left: 10px;
   width: 100%;
@@ -121,6 +121,17 @@ img {
   justify-content: space-around;
   margin-top: 1px;
   margin-left: 0px;
+}
+
+.initials-email{
+
+    display: flex;
+    /* flex-direction: row; */
+    /* align-items: flex-start; */
+    /* justify-content: space-around; */
+    margin-top: 1px;
+    margin-left: 0px;
+
 }
 
 .f {

@@ -157,11 +157,11 @@ class Registration extends React.Component {
                     value={this.state.firstName}
                     onChange={this.handleChangeAll}
                     required/>
-                    <div className="invalid-input">{this.state.firstNameError}</div>
+                    <span className="invalid-input">{this.state.firstNameError}</span>
                   <label>First name</label>
                   <span></span>
                 </div>
-                
+
 
                 <div className="all-form side-form">
                   <input
@@ -176,6 +176,7 @@ class Registration extends React.Component {
                   <span></span>
                 </div>
               </div>
+               <div className="mb-4"></div>
 
               <div className="all-form">
                 <input
@@ -189,6 +190,7 @@ class Registration extends React.Component {
                 <label for="email">Email</label>
                 <span></span>
               </div>
+             <div className="mb-4"></div>
 
               <div className="initials">
                 <div className="all-form">
