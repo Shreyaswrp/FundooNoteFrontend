@@ -5,33 +5,6 @@ body {
   font-family: arial,sans-serif;
 }
 
-.form-group{ position: relative; margin-top: 25px; padding: 0;}
-.form-control{height: 40px}
-.form-control:focus{box-shadow: none; border-style: solid;
-  border-color: blue;
-  border-width: 2px;}
-  
-label {
-  position: absolute;
-  left: 7px;
-  top: 7px;
-  transition: all 0.3s;
-  background-color: white;
-  color: #999;
-  font-weight: 2px;
-}
-
-.form-control:focus ~ label{
-  left: 8px; 
-  top: -10px;
-  color: blue; 
-  background: #fff;
-  padding:0 5px;
-  border-width: 4px;
-}
-
-
-
 .title {
   flex-direction: row;
   display: flex;
@@ -53,6 +26,7 @@ label {
   justify-content: flex-start;
   margin-left: 0px;
   margin-top: 9px;
+  margin-bottom: 20px;
   font-size: 25px;
 }
 
@@ -65,6 +39,58 @@ label {
   margin-left: 236px;
   margin-top: 100px;
   border-radius: 8px;
+}
+
+.container input
+{
+  padding: 8px;
+  margin-bottom: 30px;
+  top: 8px;
+  left: 10px;
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid lightgray;
+}
+
+.all-form
+{
+  position: relative;
+}
+
+.all-form label
+{
+  position: absolute;
+  top: 8px;
+  left: 10px;
+  color: darkgray;
+  transition: .5s;
+  pointer-events: none;
+}
+
+.container input:focus ~label
+{
+ top: -11px;
+ color: blue;
+ font-size: 14px;
+ background-color: white;
+}
+
+.container input:valid ~label
+{
+  top: -11px;
+  font-size: 14px;
+  background-color: white;
+}
+
+.container input:focus
+{
+ box-shadow: none;
+ border: 2px solid blue;
+}
+
+.container input:valid
+{
+ box-shadow: none;
 }
 
 .account {
@@ -157,7 +183,29 @@ img {
 }
 
 .submitBtn {
-  @include submitButton;
+  background: #1a73e8 !important;
+  color: white !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.04em !important;
+  font-size: 15px;
+  width: auto;
+  box-sizing: border-box;
+  margin-right: -87px;
+  border: 3px solid #1a73e8;
+  border-radius: 4px;
+}
+
+.invalid-input
+{
+  margin-top: 1px;
+  color: red;
+  font-size: 11px;
+}
+
+.text
+{
+  color: #1a73e8;
+  margin-left: -67px;
 }
 
 @media only screen and (max-width: 600px) {

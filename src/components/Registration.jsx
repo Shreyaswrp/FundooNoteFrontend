@@ -35,8 +35,6 @@ class Registration extends React.Component {
     event.preventDefault();
   };
 
-
-
   validateForm = () => {
     let firstNameError = "";
     let lastNameError = "";
@@ -48,7 +46,7 @@ class Registration extends React.Component {
       firstNameError = "First Name is required!"
     }
 
-    if(this.state.firstName.length< 3) {
+    if(this.state.firstName.length > 0 && this.state.firstName.length < 3) {
       firstNameError = "First Name must be at least 3 characters long!"
     }
 
@@ -56,7 +54,7 @@ class Registration extends React.Component {
       lastNameError = "Last Name is required!"
     }
      
-    if(this.state.lastName.length< 3) {
+    if( this.state.lastName.length > 0 && this.state.lastName.length < 3) {
       lastNameError = "Last Name must be at least 3 characters long!"
     }
 
@@ -72,7 +70,7 @@ class Registration extends React.Component {
       passwordError = "Password is required!"
     }
 
-    if(this.state.password.length < 8) {
+    if( this.state.password.length > 0 && this.state.password.length < 8) {
       passwordError = "Password must be at least 8 characters long!"
     }
 
@@ -80,7 +78,7 @@ class Registration extends React.Component {
       confirmPasswordError = "Password confirmation is required!"
     }
 
-    if(this.state.confirmPassword == this.state.password) {
+    if(this.state.confirmPassword != this.state.password) {
       confirmPasswordError = "Password doesn't match!"
     }
 
@@ -152,75 +150,71 @@ class Registration extends React.Component {
             <div className="subtitle">Create your Fundoo Account</div>
             <form autocomplete="off">
               <div className="initials">
-                <div className="form-group">
+                <div className="all-form">
                   <input
-                    type= "firstname"
-                    class="form-control"
+                    className="form-control"
                     name="firstName"
-                    required=""
                     value={this.state.firstName}
-                    onInput={this.handleLabelHide}
                     onChange={this.handleChangeAll}
-                  />
+                    required/>
+                    <div className="invalid-input">{this.state.firstNameError}</div>
                   <label>First name</label>
-                  <div className="valid-feedback">Valid.</div>
-                  <div className="invalid-feedback">{this.state.firstNameError}</div>
+                  <span></span>
                 </div>
+                
 
-                <div className="form-group side-form">
+                <div className="all-form side-form">
                   <input
-                    class="form-control"
+                    type="text"
+                    className="form-control"
                     name="lastName"
-                    required=""
                     value={this.state.lastName}
                     onChange={this.handleChangeAll}
-                  />
+                  required/>
+                  <div className="invalid-input">{this.state.lastNameError}</div>
                   <label for="lastName">Last name</label>
-                  <div class="valid-feedback">Valid.</div>
-                  <div class="invalid-feedback">{this.state.lastNameError}</div>
+                  <span></span>
                 </div>
               </div>
 
-              <div className="form-group">
+              <div className="all-form">
                 <input
-                  class="form-control"
+                  type="text"
+                  className="form-control"
                   name="email"
-                  required=""
                   value={this.state.email}
                   onChange={this.handleChangeAll}
-                />
+                required/>
+                <div className="invalid-input">{this.state.emailError}</div>
                 <label for="email">Email</label>
-                <div class="valid-feedback">Valid.</div>
-                <div class="invalid-feedback">{this.state.emailError}</div>
+                <span></span>
               </div>
 
               <div className="initials">
-                <div className="form-group">
+                <div className="all-form">
                   <input
-                    class="form-control"
+                    type="password"
+                    className="form-control"
                     name="password"
-                    required=""
                     value={this.state.password}
                     onChange={this.handleChangeAll}
-                  />
+                  required/>
+                  <div className="invalid-input">{this.state.passwordError}</div>
                   <label for="password">Password</label>
-                  <div class="valid-feedback">Valid.</div>
-                  <div class="invalid-feedback">{this.state.passwordError}</div>
+                  <span></span>
                 </div>
 
-                <div className="form-group side-form">
+                <div className="all-form side-form">
                   <input
-                    class="form-control"
+                    type="password"
+                    className="form-control"
                     name="confirmPassword"
-                    required=""
                     value={this.state.confirmPassword}
                     onChange={this.handleChangeAll}
-                  />
+                    required/>
+                    <div className="invalid-input">{this.state.confirmPasswordError}</div>
                   <label for="confirmPassword">Confirm</label>
-                  <div class="valid-feedback">Valid.</div>
-                  <div class="invalid-feedback">
-                    {this.state.confirmPasswordError}
-                  </div>
+                  <span></span>
                 </div>
               </div>
             </form>
@@ -231,8 +225,7 @@ class Registration extends React.Component {
               </div>
               <button
                 type="submit"
-                className="submitBtn"
-                variant="contained"
+                className="btn submitBtn"
                 onClick={this.handleRegisterSubmit}>
                 Sign In
               </button>
