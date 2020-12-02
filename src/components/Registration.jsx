@@ -3,9 +3,7 @@ import "../style/registration.scss";
 import { register } from "../services/userService";
 import image from "../assets/account.png";
 
-const validEmailRegex = RegExp(
-  /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
-);
+const validEmailRegex = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
 
 const initialState = {
   firstName: "",
@@ -62,10 +60,10 @@ class Registration extends React.Component {
       emailError = "Email id is required!"
     }
 
-    if(validEmailRegex.test(this.state.email)) {
-      emailError = "Email id is not valid!"
+    if( this.state.email  && !validEmailRegex.test(this.state.email)) {
+      emailError = "Please enter valid email address."
     }
-
+    
     if(!this.state.password) {
       passwordError = "Password is required!"
     }
@@ -78,7 +76,7 @@ class Registration extends React.Component {
       confirmPasswordError = "Password confirmation is required!"
     }
 
-    if(this.state.confirmPassword != this.state.password) {
+    if(this.state.confirmPassword !== this.state.password) {
       confirmPasswordError = "Password doesn't match!"
     }
 
@@ -94,7 +92,6 @@ class Registration extends React.Component {
   handleRegisterSubmit = (event) => {
     event.preventDefault();
     const isValid = this.validateForm();
-    console.log("88"+isValid);
     if (isValid) {
       this.setState({ showLoader: true });
       var registerData = {};
@@ -161,7 +158,7 @@ class Registration extends React.Component {
                   <label>First name</label>
                   <span></span>
                 </div>
-                
+
 
                 <div className="all-form side-form">
                   <input
@@ -170,12 +167,13 @@ class Registration extends React.Component {
                     name="lastName"
                     value={this.state.lastName}
                     onChange={this.handleChangeAll}
-                  required/>
+                    required/>
                   <div className="invalid-input">{this.state.lastNameError}</div>
                   <label for="lastName">Last name</label>
                   <span></span>
                 </div>
               </div>
+               <div className="mb-4"></div>
 
               <div className="all-form">
                 <input
@@ -184,11 +182,12 @@ class Registration extends React.Component {
                   name="email"
                   value={this.state.email}
                   onChange={this.handleChangeAll}
-                required/>
+                  required/>
                 <div className="invalid-input">{this.state.emailError}</div>
                 <label for="email">Email</label>
                 <span></span>
               </div>
+             <div className="mb-4"></div>
 
               <div className="initials">
                 <div className="all-form">
@@ -217,6 +216,7 @@ class Registration extends React.Component {
                   <span></span>
                 </div>
               </div>
+              <div className="mb-4"></div>
             </form>
 
             <div className="submit">
