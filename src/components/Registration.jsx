@@ -15,9 +15,7 @@ const initialState = {
   lastNameError: "",
   passwordError: "",
   emailError: "",
-  confirmPasswordError: "",
-  showLoader: false,
-  active: false
+  confirmPasswordError: ""
 };
 
 class Registration extends React.Component {
@@ -93,7 +91,6 @@ class Registration extends React.Component {
     event.preventDefault();
     const isValid = this.validateForm();
     if (isValid) {
-      this.setState({ showLoader: true });
       var registerData = {};
       registerData.firstName = this.state.firstName;
       registerData.lastName = this.state.lastName;
@@ -107,7 +104,6 @@ class Registration extends React.Component {
       register(options)
         .then((response) => {
           console.log("response in register jsx: ", response);
-          this.setState({ showLoader: false });
           this.setState({
             firstName: "",
             lastName: "",
@@ -118,7 +114,6 @@ class Registration extends React.Component {
         })
         .catch((error) => {
           console.log("error in regster jsx: ", error);
-          this.setState({ showLoader: false });
         });
 
         //Clear form
@@ -145,7 +140,7 @@ class Registration extends React.Component {
               <div className="s">s </div>
             </div>
             <div className="subtitle">Create your Fundoo Account</div>
-            <form autocomplete="off">
+            <form autoComplete="off">
               <div className="initials">
                 <div className="all-form">
                   <input
